@@ -114,10 +114,10 @@ function renderDashboard() {
       <div class="card">
         <div class="card-title">MI CREDENCIAL</div>
         <div style="display:flex;align-items:center;gap:20px">
-          <div style="background:linear-gradient(135deg,var(--accent),var(--purple));border-radius:14px;padding:20px 28px;text-align:center">
-            <div style="font-size:2rem;margin-bottom:6px">🎓</div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.9rem;font-weight:700;color:#fff;letter-spacing:0.1em">E9A3-4F7B</div>
-            <div style="font-size:0.65rem;color:rgba(255,255,255,0.7);margin-top:4px;text-transform:uppercase;letter-spacing:0.06em">NFC · QR activo</div>
+          <div style="background:var(--accent);border-radius:10px;padding:20px 28px;text-align:center;min-width:160px">
+            <div style="font-size:2rem;margin-bottom:8px">🎓</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.88rem;font-weight:700;color:#fff;letter-spacing:0.1em">E9A3-4F7B</div>
+            <div style="font-size:0.62rem;color:rgba(255,255,255,0.65);margin-top:5px;text-transform:uppercase;letter-spacing:0.06em">NFC · QR activo</div>
           </div>
           <div>
             <div style="font-size:1rem;font-weight:700;margin-bottom:4px">${cfg.name}</div>

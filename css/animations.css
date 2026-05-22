@@ -1,38 +1,48 @@
 /* ============================================================
    ANIMATIONS.CSS — Keyframes y clases de animación
+   Versión institucional: sin glows, sin efectos neón.
+   Solo transiciones sutiles y funcionales.
    ============================================================ */
 
-@keyframes pulse-blue {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 124, 255, 0.3); }
-  50%       { box-shadow: 0 0 0 12px rgba(59, 124, 255, 0); }
+/* ----- Estados del lector (sin box-shadow brillante) ----- */
+@keyframes pulse-active {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.7; }
 }
 
-@keyframes pulse-yellow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
-  50%       { box-shadow: 0 0 0 14px rgba(245, 158, 11, 0); }
+@keyframes pulse-alert {
+  0%, 100% { border-color: var(--yellow); }
+  50%       { border-color: var(--yellow-border); }
 }
 
+/* Mantener pulse-blue y pulse-yellow como alias sin glow */
+@keyframes pulse-blue   { 0%, 100% { opacity: 1; } 50% { opacity: 0.75; } }
+@keyframes pulse-yellow { 0%, 100% { opacity: 1; } 50% { opacity: 0.75; } }
+
+/* ----- Shake (lector denegado — sin cambio) ----- */
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
-  20%       { transform: translateX(-6px); }
-  40%       { transform: translateX(6px); }
-  60%       { transform: translateX(-4px); }
-  80%       { transform: translateX(4px); }
+  20%       { transform: translateX(-5px); }
+  40%       { transform: translateX(5px); }
+  60%       { transform: translateX(-3px); }
+  80%       { transform: translateX(3px); }
 }
 
+/* ----- Spinner ----- */
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
 
+/* ----- Entrada de elementos ----- */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: none; }
 }
 
 @keyframes fadeOut {
   to {
     opacity: 0;
-    transform: translateX(20px);
+    transform: translateX(16px);
     height: 0;
     padding: 0;
     margin: 0;
@@ -41,27 +51,28 @@
 }
 
 @keyframes slideIn {
-  from { opacity: 0; transform: translateX(-12px); }
+  from { opacity: 0; transform: translateX(-10px); }
   to   { opacity: 1; transform: none; }
 }
 
 @keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
+  from { opacity: 0; transform: translateY(-8px); }
   to   { opacity: 1; transform: none; }
 }
 
 @keyframes popIn {
-  from { opacity: 0; transform: scale(0.9); }
+  from { opacity: 0; transform: scale(0.96); }
   to   { opacity: 1; transform: scale(1); }
 }
 
+/* ----- Scan line del lector ----- */
 @keyframes scanMove {
-  0%   { top: 20%; opacity: 1; }
-  90%  { top: 80%; opacity: 1; }
+  0%   { top: 20%; opacity: 0.8; }
+  90%  { top: 80%; opacity: 0.8; }
   100% { top: 80%; opacity: 0; }
 }
 
-/* ----- Animation utility classes ----- */
-.anim-fadeIn  { animation: fadeIn  0.3s ease; }
-.anim-slideIn { animation: slideIn 0.25s ease; }
-.anim-popIn   { animation: popIn   0.35s ease; }
+/* ----- Clases utilitarias de animación ----- */
+.anim-fadeIn  { animation: fadeIn  0.25s ease; }
+.anim-slideIn { animation: slideIn 0.2s ease; }
+.anim-popIn   { animation: popIn   0.25s ease; }

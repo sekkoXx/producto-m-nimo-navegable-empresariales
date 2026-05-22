@@ -24,11 +24,13 @@ function renderActiveAccesses() {
     const el  = document.createElement('div');
     el.className = 'access-item';
     el.id        = `access-${access.id}`;
+    // Avatar: uso de hsl suave sobre la base institucional (saturación baja)
+    const avatarBg = `hsl(${hue}, 30%, 45%)`;
     el.innerHTML = `
       <div class="access-user">
         <div
           class="access-avatar"
-          style="background:linear-gradient(135deg,hsl(${hue},70%,45%),hsl(${hue + 60},60%,35%))"
+          style="background:${avatarBg}"
         >${access.initials}</div>
         <div>
           <div class="access-name">${access.name}</div>
