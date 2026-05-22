@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SCA-SMon · Sistema de Control de Accesos – Universidad</title>
+  <meta name="description" content="Producto Mínimo Navegable del Sistema de Control de Accesos e Incidencias para entornos universitarios." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets — orden importa: tokens → base → animaciones → componentes → layout → vistas -->
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/views.css" />
+</head>
+<body>
+
+<!-- ================================================================
+     TOAST CONTAINER (siempre visible, gestionado por utils.js)
+     ================================================================ -->
+<div id="toast-container"></div>
+
+<!-- ================================================================
+     SCREEN: LOGIN — Selección de rol
+     ================================================================ -->
+<div id="screen-login" class="screen active">
+  <div class="login-container">
+
+    <div class="login-logo">
+      <div class="login-logo-icon">🏛️</div>
+      <div>
+        <div class="login-logo-text"><span>SCA</span>·SMon</div>
+        <div style="font-size:0.7rem;color:var(--text-muted);letter-spacing:0.04em;">SISTEMA DE CONTROL DE ACCESOS</div>
+      </div>
+    </div>
+    <div class="login-subtitle" style="margin-top:6px;">Universidad · Plataforma de Gestión Institucional</div>
+
+    <div style="margin-top:40px;">
+      <h1 class="login-heading">Selecciona tu rol</h1>
+      <p class="login-desc">Elige el actor con el que deseas ingresar al sistema. Esta es una maqueta de demostración — no se requiere autenticación.</p>
+    </div>
+
+    <div class="role-grid">
+      <div class="role-card" style="--role-color:#3b7cff" onclick="login('estudiante')">
+        <div class="role-icon">🎓</div>
+        <div class="role-name">Estudiante</div>
+        <div class="role-desc">Acceso a instalaciones con credencial NFC/QR</div>
+      </div>
+      <div class="role-card" style="--role-color:#a855f7" onclick="login('docente')">
+        <div class="role-icon">👨‍🏫</div>
+        <div class="role-name">Docente</div>
+        <div class="role-desc">Acceso extendido a laboratorios y salas</div>
+      </div>
+      <div class="role-card" style="--role-color:#22c55e" onclick="login('visitante')">
+        <div class="role-icon">🪪</div>
+        <div class="role-name">Visitante</div>
+        <div class="role-desc">Acceso temporal con credencial emitida</div>
+      </div>
+      <div class="role-card" style="--role-color:#f59e0b" onclick="login('guardia')">
+        <div class="role-icon">🛡️</div>
+        <div class="role-name">Guardia</div>
+        <div class="role-desc">Control operativo de puntos de acceso</div>
+      </div>
+      <div class="role-card" style="--role-color:#ef4444" onclick="login('admin')">
+        <div class="role-icon">⚙️</div>
+        <div class="role-name">Administrador</div>
+        <div class="role-desc">Gestión de incidencias y configuración</div>
+      </div>
+    </div>
+
+    <div class="login-footer">
+      <span>⚠ PMN — Producto Mínimo Navegable</span> · Los datos son ficticios y simulados · v1.0
+    </div>
+
+  </div>
+</div>
+
+<!-- ================================================================
+     SCREEN: APP — Layout principal post-login
+     ================================================================ -->
+<div id="screen-app" class="screen">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-icon">🏛️</div>
+        <div class="sidebar-logo-text"><span>SCA</span>·SMon</div>
+      </div>
+      <div id="sidebar-role-badge" class="sidebar-role-badge"></div>
+    </div>
+
+    <nav class="sidebar-nav" id="sidebar-nav">
+      <!-- Generado dinámicamente por navigation.js → buildNav() -->
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user" onclick="logout()">
+        <div class="user-avatar" id="user-avatar">A</div>
+        <div>
+          <div class="user-name" id="user-name-display">Usuario</div>
+          <div class="user-role">Cerrar sesión →</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <div>
+        <div class="page-title" id="page-title">Panel Principal</div>
+        <div class="page-subtitle" id="page-subtitle">Bienvenido al sistema</div>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="live-clock" id="live-clock">00:00:00</div>
+      </div>
+    </div>
+
+    <!-- PAGE CONTENT -->
+    <div class="page-content">
+
+      <!-- ============================================================
+           VIEW: ACCESS POINT — Simulador de lector NFC/QR
+           ============================================================ -->
+      <div id="view-access-point" class="view">
+        <div class="reader-container">
+
+          <!-- Lector físico simulado -->
+          <div class="reader-panel">
+            <div style="width:100%">
+              <div class="card-title">PUNTO DE ACCESO ACTIVO</div>
+              <div style="font-size:0.8rem;color:var(--text-secondary)">
+                📍 Laboratorio de Cómputo A · Edificio Tecnología
+              </div>
+            </div>
+
+            <div class="reader-device idle" id="reader-device">
+              <div class="reader-icon" id="reader-icon">📡</div>
+              <div class="reader-status-text" id="reader-status-text">EN ESPERA</div>
+              <div id="reader-spinner" class="hidden" style="margin-top:4px">
+                <div class="reader-spinner"></div>
+              </div>
+              <div class="scan-line hidden" id="scan-line"></div>
+            </div>
+
+            <div class="reader-location">
+              Lector NFC/QR · Capacidad máx: <strong>30</strong> personas<br/>
+              Horario habilitado: <strong>07:00 – 22:00</strong>
+            </div>
+
+            <div id="reader-result" class="hidden w-full"></div>
+
+            <button class="btn btn-ghost btn-sm w-full" onclick="resetReader()">
+              ↺ Reiniciar lector
+            </button>
+          </div>
+
+          <!-- Selector de escenarios -->
+          <div>
+            <div class="card-title" style="margin-bottom:14px;">SIMULAR ESCENARIO</div>
+            <div class="scenario-list">
+
+              <button class="scenario-btn" id="sc-btn-0" onclick="runScenario(0)">
+                <div class="scenario-dot" style="background:var(--green)"></div>
+                <div>
+                  <div class="scenario-name">✅ Acceso Autorizado</div>
+                  <div class="scenario-desc">Estudiante García · credencial NFC válida · dentro de horario</div>
+                </div>
+              </button>
+
+              <button class="scenario-btn" id="sc-btn-1" onclick="runScenario(1)">
+                <div class="scenario-dot" style="background:var(--red)"></div>
+                <div>
+                  <div class="scenario-name">❌ Credencial Expirada</div>
+                  <div class="scenario-desc">Estudiante Mora · credencial vencida hace 3 días</div>
+                </div>
+              </button>
+
+              <button class="scenario-btn" id="sc-btn-2" onclick="runScenario(2)">
+                <div class="scenario-dot" style="background:var(--red)"></div>
+                <div>
+                  <div class="scenario-name">🕐 Fuera de Horario</div>
+                  <div class="scenario-desc">Docente Ríos · intento de acceso a las 23:45</div>
+                </div>
+              </button>
+
+              <button class="scenario-btn" id="sc-btn-3" onclick="runScenario(3)">
+                <div class="scenario-dot" style="background:var(--orange)"></div>
+                <div>
+                  <div class="scenario-name">🚫 Capacidad Máxima</div>
+                  <div class="scenario-desc">Lab A · 30/30 ocupados · ingreso bloqueado temporalmente</div>
+                </div>
+              </button>
+
+              <button class="scenario-btn" id="sc-btn-4" onclick="runScenario(4)">
+                <div class="scenario-dot" style="background:var(--yellow)"></div>
+                <div>
+                  <div class="scenario-name">⚠️ Alerta de Seguridad</div>
+                  <div class="scenario-desc">Visitante Anón · tercer intento fallido · protocolo activado</div>
+                </div>
+              </button>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ============================================================
+           VIEW: GUARD PANEL — Panel operativo del guardia
+           ============================================================ -->
+      <div id="view-guard" class="view">
+
+        <div class="stat-grid">
+          <div class="stat-card" style="--stat-color:var(--green)">
+            <div class="stat-label">Usuarios Activos</div>
+            <div class="stat-value" id="guard-count">—</div>
+            <div class="stat-sub">dentro de instalaciones</div>
+          </div>
+          <div class="stat-card" style="--stat-color:var(--red)">
+            <div class="stat-label">Alertas Activas</div>
+            <div class="stat-value">2</div>
+            <div class="stat-sub">requieren atención</div>
+          </div>
+          <div class="stat-card" style="--stat-color:var(--accent)">
+            <div class="stat-label">Puntos Activos</div>
+            <div class="stat-value">5</div>
+            <div class="stat-sub">de 8 habilitados</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Accesos Hoy</div>
+            <div class="stat-value">147</div>
+            <div class="stat-sub">↑ 12% vs. ayer</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start">
+
+          <!-- Lista de accesos activos -->
+          <div>
+            <div class="flex justify-between items-center mb-4">
+              <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted)">
+                ACCESOS ACTIVOS
+              </div>
+              <button class="btn btn-ghost btn-sm" onclick="addRandomAccess()">+ Simular entrada</button>
+            </div>
+            <div id="active-accesses">
+              <!-- Generado por guard.js → renderActiveAccesses() -->
+            </div>
+          </div>
+
+          <!-- Alertas y protocolo de arranque -->
+          <div>
+            <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:16px">
+              ALERTAS ACTIVAS
+            </div>
+            <div id="active-alerts">
+              <div class="alert-item">
+                <div class="alert-icon">🚨</div>
+                <div>
+                  <div class="alert-title">3° Intento Fallido — Sala B</div>
+                  <div class="alert-detail">Visitante desconocido · credencial inválida repetida · posible intento de intrusión</div>
+                  <div class="alert-time">Hace 4 minutos</div>
+                </div>
+              </div>
+              <div class="alert-item">
+                <div class="alert-icon">⚡</div>
+                <div>
+                  <div class="alert-title">Sesión Sin Cierre — Lab Química</div>
+                  <div class="alert-detail">Estudiante Pérez ingresó a las 09:15 · sin registro de salida · posible sesión huérfana</div>
+                  <div class="alert-time">Hace 22 minutos</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:20px">
+              <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:12px">
+                PROTOCOLO DEL SISTEMA
+              </div>
+              <button class="btn btn-warning w-full" onclick="showRestartModal()">
+                🔄 Protocolo de Arranque · Sesiones Huérfanas
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ============================================================
+           VIEW: ADMIN PANEL — Incidencias y credenciales temporales
+           ============================================================ -->
+      <div id="view-admin" class="view">
+        <div style="display:grid;grid-template-columns:3fr 2fr;gap:24px;align-items:start">
+
+          <!-- Lista de incidencias -->
+          <div>
+            <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:16px">
+              INCIDENCIAS ABIERTAS
+            </div>
+            <div id="incidents-list">
+              <!-- Generado por admin.js → renderIncidents() -->
+            </div>
+          </div>
+
+          <!-- Formulario de emisión de credencial temporal -->
+          <div>
+            <div class="card">
+              <div class="card-title">EMITIR CREDENCIAL TEMPORAL</div>
+              <div class="flex flex-col gap-3">
+
+                <div class="form-group">
+                  <label class="label" for="cred-name">Nombre del visitante</label>
+                  <input id="cred-name" class="input" type="text" placeholder="Ej. Dr. Andrade López" />
+                </div>
+
+                <div class="form-group">
+                  <label class="label" for="cred-facility">Instalación</label>
+                  <select id="cred-facility" class="input">
+                    <option value="">Seleccionar instalación</option>
+                    <option>Laboratorio de Cómputo A</option>
+                    <option>Laboratorio de Química</option>
+                    <option>Biblioteca Central</option>
+                    <option>Sala de Conferencias B</option>
+                    <option>Auditorio Principal</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="label" for="cred-time">Horario de acceso</label>
+                  <select id="cred-time" class="input">
+                    <option value="">Seleccionar horario</option>
+                    <option>08:00 – 12:00</option>
+                    <option>12:00 – 16:00</option>
+                    <option>16:00 – 20:00</option>
+                    <option>08:00 – 20:00 (día completo)</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="label" for="cred-date">Fecha de validez</label>
+                  <input id="cred-date" class="input" type="date" />
+                </div>
+
+                <button class="btn btn-primary w-full" onclick="issueCredential()">
+                  🪪 Emitir credencial temporal
+                </button>
+              </div>
+
+              <!-- Resultado de la credencial emitida -->
+              <div id="cred-issued" class="cred-issued">
+                <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--green);margin-bottom:6px">
+                  CREDENCIAL EMITIDA
+                </div>
+                <div class="cred-code" id="cred-code">TMP-000000</div>
+                <div style="font-size:0.8rem;color:var(--text-secondary)" id="cred-details"></div>
+                <div style="margin-top:10px;display:flex;gap:8px">
+                  <button class="btn btn-success btn-sm">🖨️ Imprimir</button>
+                  <button class="btn btn-ghost btn-sm">📧 Enviar QR</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ============================================================
+           VIEW: HISTORY — Historial de eventos de acceso
+           ============================================================ -->
+      <div id="view-history" class="view">
+        <div class="filter-bar">
+          <button class="filter-btn active" onclick="filterHistory('all', this)">Todos</button>
+          <button class="filter-btn" onclick="filterHistory('Permitido', this)">✅ Permitidos</button>
+          <button class="filter-btn" onclick="filterHistory('Denegado', this)">❌ Denegados</button>
+          <input
+            id="history-search"
+            class="input"
+            style="max-width:220px"
+            placeholder="🔍 Buscar usuario..."
+          />
+        </div>
+
+        <div class="card" style="padding:0;overflow:hidden">
+          <div class="table-wrap">
+            <table id="history-table">
+              <thead>
+                <tr>
+                  <th>Usuario</th>
+                  <th>Rol</th>
+                  <th>Instalación</th>
+                  <th>Entrada</th>
+                  <th>Salida</th>
+                  <th>Duración</th>
+                  <th>Resultado</th>
+                  <th>Motivo</th>
+                </tr>
+              </thead>
+              <tbody id="history-body">
+                <!-- Generado por history.js → renderHistory() -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           VIEW: FLOW TOUR — Recorrido guiado Caso A
+           ============================================================ -->
+      <div id="view-tour" class="view">
+        <div class="tour-container">
+          <div class="tour-progress">
+            <div class="tour-steps-bar" id="tour-steps-bar">
+              <!-- Generado por tour.js → buildTourStepsBar() -->
+            </div>
+            <div class="tour-progress-text" id="tour-progress-text">Paso 1 de 10</div>
+          </div>
+
+          <div id="tour-step-content">
+            <!-- Generado por tour.js → renderTourStep() -->
+          </div>
+
+          <div class="tour-nav" id="tour-nav">
+            <button class="btn btn-ghost" id="tour-prev" onclick="tourPrev()">← Anterior</button>
+            <button class="btn btn-primary" id="tour-next" onclick="tourNext()">Siguiente →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           VIEW: DASHBOARD — Panel por defecto según rol
+           ============================================================ -->
+      <div id="view-dashboard" class="view">
+        <div id="dashboard-content">
+          <!-- Generado por navigation.js → renderDashboard() -->
+        </div>
+      </div>
+
+    </div><!-- /page-content -->
+  </main><!-- /main-content -->
+
+</div><!-- /screen-app -->
+
+<!-- ================================================================
+     MODAL: PROTOCOLO DE ARRANQUE — Sesiones Huérfanas
+     ================================================================ -->
+<div id="restart-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div style="font-size:2rem;margin-bottom:12px">🔄</div>
+    <div class="modal-title">Protocolo de Arranque · Sesiones Huérfanas</div>
+    <div class="modal-desc">
+      El SMon ha detectado <strong>3 sesiones huérfanas</strong> — accesos que no registraron salida
+      correctamente. El protocolo marcará estas sesiones como cerradas automáticamente y generará
+      una incidencia de tipo <em>"Cierre Forzado"</em> para cada caso.
+    </div>
+
+    <div style="margin-bottom:20px;display:flex;flex-direction:column;gap:8px" id="orphan-list">
+      <div class="orphan-item">
+        <div>
+          <div class="orphan-name">Pérez Ramírez, Carlos</div>
+          <div class="orphan-meta">Lab. Química · Entrada: 09:15</div>
+        </div>
+        <span class="badge badge-yellow">Huérfana</span>
+      </div>
+      <div class="orphan-item">
+        <div>
+          <div class="orphan-name">Soto Jiménez, Andrea</div>
+          <div class="orphan-meta">Sala Cómputo A · Entrada: 10:02</div>
+        </div>
+        <span class="badge badge-yellow">Huérfana</span>
+      </div>
+      <div class="orphan-item">
+        <div>
+          <div class="orphan-name">Visitante TMP-7821</div>
+          <div class="orphan-meta">Biblioteca · Entrada: 11:30</div>
+        </div>
+        <span class="badge badge-yellow">Huérfana</span>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeRestartModal()">Cancelar</button>
+      <button class="btn btn-warning" onclick="executeRestart()">▶ Ejecutar protocolo</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     JAVASCRIPT — Orden de carga: primero datos/config/estado, luego módulos, luego main
+     ================================================================ -->
+
+<!-- 1. Datos estáticos y configuración (sin dependencias) -->
+<script src="js/data.js"></script>
+<script src="js/config.js"></script>
+<script src="js/state.js"></script>
+
+<!-- 2. Utilidades comunes (dependen de nada) -->
+<script src="js/utils.js"></script>
+
+<!-- 3. Módulos de funcionalidad (dependen de state, data, config, utils) -->
+<script src="js/navigation.js"></script>
+<script src="js/reader.js"></script>
+<script src="js/guard.js"></script>
+<script src="js/admin.js"></script>
+<script src="js/history.js"></script>
+<script src="js/tour.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/auth.js"></script>
+
+<!-- 4. Entry point (depende de todos los módulos anteriores) -->
+<script src="js/main.js"></script>
+
+</body>
+</html>
