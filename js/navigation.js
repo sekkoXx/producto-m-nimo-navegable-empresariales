@@ -1,5 +1,4 @@
 /**
- * navigation.js — Sistema de navegación y vistas
  *
  * Gestiona la construcción dinámica del sidebar y la activación
  * de vistas. También incluye el renderizado del dashboard por rol.
@@ -84,7 +83,6 @@ function navigateTo(viewId) {
    ============================================================ */
 
 /**
- * Renderiza el panel principal según el rol activo.
  * Cada rol tiene un layout diferente.
  */
 function renderDashboard() {

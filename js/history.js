@@ -1,7 +1,5 @@
 /**
- * history.js — Vista de Historial de Accesos
- *
- * Gestiona el renderizado y filtrado de la tabla
+ * Gesiona el renderizado y filtrado de la tabla
  * de historial de eventos de acceso.
  */
 
@@ -64,7 +62,6 @@ function renderHistory(filter) {
    ============================================================ */
 
 /**
- * Aplica un filtro y actualiza el estado visual de los botones.
  *
  * @param {string} filter - 'all' | 'Permitido' | 'Denegado'
  * @param {HTMLElement|null} btn - Botón que fue presionado (para activar su clase)

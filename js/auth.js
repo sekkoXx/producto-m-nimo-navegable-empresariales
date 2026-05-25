@@ -1,15 +1,13 @@
 /**
- * auth.js — Autenticación simulada: login y logout
+ 
  *
- * No hay validación real. El usuario selecciona su rol
+ * El usuario selecciona su rol
  * y el sistema configura la UI correspondiente.
  */
 
 /**
  * Inicia sesión con el rol seleccionado.
- * Configura la sidebar, navega a la vista por defecto
- * e inicializa todas las vistas necesarias.
- *
+ 
  * @param {string} role - Uno de: 'estudiante' | 'docente' | 'visitante' | 'guardia' | 'admin'
  */
 function login(role) {

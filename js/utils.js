@@ -1,6 +1,4 @@
 /**
- * utils.js — Funciones utilitarias compartidas
- *
  * Contiene: formateo de fechas/horas, generación de códigos,
  * hash de nombre para colores de avatar, reloj en vivo, toasts.
  */

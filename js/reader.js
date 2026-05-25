@@ -1,6 +1,4 @@
 /**
- * reader.js — Simulador del punto de acceso (lector NFC/QR)
- *
  * Gestiona la animación del lector y la ejecución de escenarios
  * predefinidos con feedback visual y sonoro (simulado).
  */
@@ -50,8 +48,6 @@ function getReaderEls() {
 
 /**
  * Ejecuta un escenario del simulador de acceso.
- * Anima el lector, espera el delay definido y muestra el resultado.
- *
  * @param {number} idx - Índice del escenario en buildScenarios()
  */
 function runScenario(idx) {

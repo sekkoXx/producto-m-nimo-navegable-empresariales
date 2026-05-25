@@ -1,5 +1,4 @@
 /**
- * guard.js — Panel del Guardia de Seguridad
  *
  * Gestiona la lista de accesos activos: renderizado,
  * registro de salida manual y simulación de entradas nuevas.
@@ -10,7 +9,6 @@
    ============================================================ */
 
 /**
- * Renderiza la lista completa de accesos activos en el panel del guardia.
  * Usa AppState.activeAccesses como fuente de verdad.
  */
 function renderActiveAccesses() {

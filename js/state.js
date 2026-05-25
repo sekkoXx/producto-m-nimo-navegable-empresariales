@@ -1,6 +1,4 @@
 /**
- * state.js — Estado global de la aplicación
- *
  * Contiene todas las variables de estado compartidas entre módulos.
  * Se usa como objeto centralizado para evitar variables globales sueltas.
  */

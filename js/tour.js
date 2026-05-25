@@ -1,6 +1,4 @@
-/**
- * tour.js — Recorrido guiado del sistema (Caso A)
- *
+/*
  * Gestiona la navegación paso a paso por el flujo nominal
  * de acceso autorizado, mostrando actores, entidades y estados.
  */
@@ -10,7 +8,6 @@
    ============================================================ */
 
 /**
- * Inicializa el tour reiniciando al paso 0 y renderizando.
  * Se llama al hacer login o navegar a la vista de tour.
  */
 function initTour() {
