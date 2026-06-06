@@ -1,5 +1,4 @@
 /**
- * modal.js — Modal del Protocolo de Arranque (sesiones huérfanas)
  *
  * Gestiona la apertura, cierre y ejecución del protocolo
  * de arranque que resuelve sesiones huérfanas.
@@ -24,7 +23,6 @@ function closeRestartModal() {
    ============================================================ */
 
 /**
- * Ejecuta el protocolo de arranque:
  * - Cierra el modal
  * - Muestra toast de confirmación
  * - Elimina la alerta de sesión huérfana del panel del guardia

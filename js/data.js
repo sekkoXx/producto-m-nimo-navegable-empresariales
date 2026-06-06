@@ -1,9 +1,7 @@
 /**
- * data.js — Datos ficticios precargados del sistema
  *
  * Contiene: historial de accesos, nombres aleatorios para simulación,
  * personal disponible para asignación de incidencias.
- * No hay lógica aquí, solo constantes de datos.
  */
 
 /** Historial de accesos (tabla en la vista de Historial) */

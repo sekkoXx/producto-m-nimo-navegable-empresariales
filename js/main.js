@@ -1,12 +1,10 @@
 /**
- * main.js — Punto de entrada y bootstrapping de la aplicación
  *
  * Se encarga de:
  * - Inicializar utilidades globales (reloj)
  * - Registrar event listeners que no están en atributos HTML
  * - Cualquier setup inicial necesario antes de la interacción del usuario
  *
- * Todos los módulos deben estar cargados antes de este archivo.
  */
 
 document.addEventListener('DOMContentLoaded', () => {

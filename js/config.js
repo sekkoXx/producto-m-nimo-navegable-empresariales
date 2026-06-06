@@ -1,10 +1,7 @@
 /**
- * config.js — Configuraciones del sistema
  *
  * Contiene: roleConfig (por rol), tourSteps (pasos del recorrido),
  * scenarios (escenarios del simulador de acceso).
- * Separado de data.js porque define comportamiento y estructura,
- * no solo valores.
  */
 
 /* ============================================================
@@ -104,10 +101,7 @@ const STATUS_BADGE    = {
   'Cerrada':     'badge-green',
 };
 
-/* ============================================================
-   TOUR STEPS — Caso A: Flujo completo de acceso autorizado
-   Cada paso: { id, title, actor, desc, entities[], state }
-   ============================================================ */
+
 const TOUR_STEPS = [
   {
     id: 'P0',
@@ -225,8 +219,6 @@ const TOUR_STEPS = [
 
 /* ============================================================
    SCENARIOS — Escenarios del simulador de acceso
-   Cada escenario: { type, delay, result: { type, title, detail } }
-   Los detalles se generan como funciones para ser frescos al correr.
    ============================================================ */
 function buildScenarios() {
   return [
