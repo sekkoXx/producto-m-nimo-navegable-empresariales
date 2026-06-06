@@ -1,65 +1,19 @@
 # producto-m-nimo-navegable-empresariales
 
-<<<<<<< HEAD
-## Punto de corte actual
+Proyecto MVP (Producto Mínimo Navegable) — Sistema de Control de Accesos e Incidencias para entornos universitarios.
 
-Este repositorio queda documentado a partir de este estado como base para empezar el backend. La aplicación actual es un SPA de demostración con datos simulados, estado en memoria y sin integración real con API o base de datos.
+Qué incluye (frontend): selección de rol, simulador de lector NFC/QR, panel del guardia, panel admin, historial y recorrido guiado.
 
-La referencia completa del estado actual y del corte para backend está en [docs/estado-actual-y-corte-para-backend.md](docs/estado-actual-y-corte-para-backend.md).
-=======
-Este proyecto representa un MVP de un sistema institucional de control de acceso para entornos universitarios.
+Estructura relevante
+- `backend/` — Código y scripts del backend (Flask, SQLite). Ver `backend/README.md` para instrucciones.
+- `js/`, `css/`, `index.html` — Frontend estático (SPA) y assets.
+- `docs/` — Documentación del estado y corte para comenzar el backend.
 
-El sistema simula:
+Punto de corte
+La base del backend fue añadida en `backend/` (servidor Flask mínimo, esquema SQL y script de inicialización). Para levantar el backend sigue las instrucciones en `backend/README.md`.
 
-Validación de credenciales NFC
-Control de acceso a instalaciones
-Monitoreo de aforo
-Gestión de incidencias
-Panel operativo para guardias
-Panel administrativo
-Historial de accesos
-Recorrido guiado del flujo operativo completo
+Si quieres, puedo ahora:
+- Conectar la UI al backend (`js/api.js` ya añadido) y habilitar login/registro.
+- Añadir autenticación con JWT y proteger endpoints.
+- Reorganizar también la carpeta `frontend/` moviendo `index.html`, `js/` y `css/` dentro de ella.
 
-Todo el sistema fue desarrollado usando:
-HTML
-CSS
-JavaScript Vanilla 
-
-Simulador de acceso
-
-Permite ejecutar distintos escenarios:
-
-Acceso autorizado
-Credencial expirada
-Fuera de horario
-Capacidad máxima
-Alerta de seguridad
-
-El lector NFC simulado cambia dinámicamente de estado:
-
-Libre
-Procesando
-Autorizado
-Denegado
-Alerta
-Panel del guardia
-
-Incluye:
-
-Accesos activos
-Monitoreo de sesiones
-Alertas operativas
-Estado de instalaciones
-Panel administrativo
-
-Incluye:
-
-Gestión de incidencias
-Priorización de eventos
-Estados de revisión
-Escalamiento operativo
-
-
-se probo con visual stuidioo code con el LIVE SERVER que se instala en los addons del mismo vsc , una vez este listo se le da a golive y se despliega la pagina
-
->>>>>>> d0b89bb682f9dd092573f2ecb8d93caad200bb89
