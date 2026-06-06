@@ -51,7 +51,7 @@
 }
 
 .role-card {
-  background: #fff;
+  background: var(--bg-card);
   border: 1.5px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 22px 14px;
@@ -203,7 +203,7 @@
   transform: translateY(-50%);
   width: 3px;
   height: 60%;
-  background: #fff;
+  background: var(--bg-surface);
   border-radius: 0 2px 2px 0;
 }
 
@@ -274,7 +274,7 @@
   margin-bottom: 24px;
   border-bottom: 1px solid var(--border);
   padding-bottom: 20px;
-  background: #fff;
+  background: var(--bg-surface);
 }
 
 .page-title    { font-size: 1.3rem; font-weight: 700; color: var(--text-primary); letter-spacing: -0.01em; }

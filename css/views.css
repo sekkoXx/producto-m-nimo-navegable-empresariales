@@ -14,7 +14,7 @@
 
 /* Panel del lector */
 .reader-panel {
-  background: #fff;
+  background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   padding: 28px;
@@ -113,7 +113,7 @@
   padding: 12px 14px;
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
-  background: #fff;
+  background: var(--bg-card);
   text-align: left;
   transition: all var(--transition);
   width: 100%;
@@ -148,7 +148,7 @@
   padding: 12px 14px;
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
-  background: #fff;
+  background: var(--bg-card);
   margin-bottom: 8px;
   transition: all var(--transition);
   animation: slideIn 0.2s ease;
@@ -209,7 +209,7 @@
   gap: 0;
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
-  background: #fff;
+  background: var(--bg-card);
   margin-bottom: 10px;
   transition: all var(--transition);
   overflow: hidden;
@@ -259,7 +259,7 @@
   transition: all 0.3s ease;
   border: 2px solid var(--border);
   color: var(--text-muted);
-  background: #fff;
+  background: var(--bg-surface);
 }
 .tour-step-dot.done    { background: var(--accent); border-color: var(--accent); color: #fff; }
 .tour-step-dot.current { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
@@ -271,7 +271,7 @@
 
 /* Tarjeta del paso */
 .tour-card {
-  background: #fff;
+  background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   padding: 28px 32px;
@@ -316,7 +316,7 @@
 }
 
 .tour-entity-box {
-  background: #f8f9fc;
+  background: var(--bg-card-hover);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: 12px 14px;

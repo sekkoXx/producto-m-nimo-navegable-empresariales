@@ -6,8 +6,8 @@
 :root {
   /* ----- Backgrounds ----- */
   --bg-base:       #f0f2f5;       /* Fondo general — gris azulado muy suave */
-  --bg-surface:    #ffffff;       /* Superficies principales (sidebar, cards) */
-  --bg-card:       #ffffff;       /* Cards */
+  --bg-surface:    #fbfdff;       /* Superficies principales (sidebar, cards) — evitar blanco puro */
+  --bg-card:       var(--bg-surface); /* Cards usan la superficie para evitar blanco puro */
   --bg-card-hover: #f8f9fc;       /* Card hover state */
   --bg-input:      #f8f9fc;       /* Campos de formulario */
 
